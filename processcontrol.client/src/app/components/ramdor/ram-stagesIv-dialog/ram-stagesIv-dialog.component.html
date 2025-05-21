@@ -1,0 +1,30 @@
+
+<div class="bgAll">
+
+  <h2 mat-dialog-title class="title">שלבי החשבונית</h2>
+  <div mat-dialog-content class="content">
+
+    <div class="timeline">
+      <div *ngFor="let stage of ivStages; let i = index" class="timeline-item" [class.completed]="stage.resStatus">
+        <div class="circle-container">
+          <div class="circle">
+            <span *ngIf="stage?.resStatus === 'SUCCESS'" class="checkmark">✔</span>
+          </div>
+          <div *ngIf="i < ivStages.length - 1" class="line"></div>
+        </div>
+        <div class="stage-info">
+          <span class="stage-status">{{ stage.resStatus }}</span> -
+          <span class="stage-date">{{ stage.uDate | date: 'dd/MM/yyyy HH:mm' }}</span> -
+          <span class="stage-desc">{{ stage.stageDes }}</span>
+        </div>
+      </div>
+    </div>
+    <p *ngIf="!ivStages || !ivStages.length" class="no-stages">לא נמצאו שלבים לחשבונית</p>
+
+  </div>
+
+  <div mat-dialog-actions class="actions">
+    <button mat-button (click)="close()" class="close-btn">סגור</button>
+  </div>
+</div>
+

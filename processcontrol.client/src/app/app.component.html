@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+  <!--<div class="dashboard">-->
+</head>
+<body>
+  <div>
+    <div class="header-bar">
+      <img src="../assets/logo-rtg.png" alt="לוגו האתר" class="logo">
+    </div>
+    <h1>{{ title }}</h1>
+
+    <div class="container" [ngClass]="{ 'minimized': selectedTopic }">
+      <button class="box"
+              [ngClass]="{ 'selected': selectedTopic === 'חניוני לילה' }">חניוני לילה</button>
+      <button class="box" [routerLink]="['/ramdor']" (click)="selectTopic('רמדור')"
+              [ngClass]="{ 'selected': selectedTopic === 'רמדור' }">רמדור</button>
+      <button class="box" [routerLink]="['/netzer']"
+              [ngClass]="{ 'selected': selectedTopic === 'נצר' }">נצר</button>
+    </div>
+    <div *ngIf="selectedTopic" class="content">
+      <!--<h2>{{ selectedTopic }}</h2>-->
+      <h2>
+        בקרת תהליכי
+        {{ selectedTopic }}
+        - פריוריטי
+      </h2>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+</body>
+</html>
+
+<!--(click)="fetchData('api/natzar')"-->

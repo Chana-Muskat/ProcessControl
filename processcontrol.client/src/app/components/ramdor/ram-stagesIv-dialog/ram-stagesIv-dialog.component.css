@@ -1,0 +1,295 @@
+
+/* יישור לימין*/ 
+/*.content {
+  direction: rtl;
+  text-align: right;
+  padding: 10px;
+  background: #f8f8f8;
+}*/
+
+/* כותרת */
+/*.title {
+  color: #2e7d32;
+  text-align: right;
+  font-size: 22px;
+  font-weight: bold;
+}
+button, input, select, textarea {
+ font-family: 'Varela Round', sans-serif;*/ /* פונט אחיד גם לכפתורים */
+/*}
+ רשימת השלבים 
+.stages-list {
+  list-style: none;
+  padding-right: 0;  מתאים ל-RTL 
+}
+
+.stage-item {
+  background: white;
+  padding: 10px;
+  margin: 5px 0;
+  border-left: 5px solid #4CAF50;*/ /* סימון ירוק בצד ימין */
+  /*border-right: none;
+  font-size: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start;*/ /*מוודא יישור ימני*/
+/*}*/
+
+/* עיצוב אלמנטים בתוך שלב */
+/*.stage-name {
+  font-weight: bold;
+  color: #2e7d32;
+}
+
+.stage-status {
+  font-weight: bold;
+  color: #1565c0;
+}
+
+.stage-date {
+  color: #555;
+}
+
+.stage-desc {
+  font-style: italic;
+  color: #777;
+}*/
+
+/* טקסט כשאין שלבים */
+/*.no-stages {
+  color: red;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+ עיצוב כפתור הסגירה 
+.actions {
+  display: flex;
+ justify-content: flex-start;*/ /* כפתור יישאר בצד ימין */
+  /*padding: 10px;
+}
+
+.close-btn {
+  background: #4CAF50;
+  color: white;
+  font-weight: bold;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+  .close-btn:hover {
+    background: #388E3C;
+  }*/
+/*  ************************************************/
+/*
+.title {
+  color: #003b29;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.content {
+  background: #f5f8f2;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  position: relative;
+}
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    background: #ccc;
+    left: 15px;
+    top: 0;
+  }
+
+  .timeline-item:last-child::before {
+    display: none;
+  }
+
+.circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+
+.completed .circle {
+  background: #006644;
+}
+
+.checkmark {
+  font-size: 1.2rem;
+}
+
+.stage-info {
+  margin-left: 10px;
+  font-size: 1rem;
+  color: #003b29;
+}
+
+.no-stages {
+  text-align: center;
+  color: #ff0000;
+  font-weight: bold;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.close-btn {
+  background: #003b29;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 4px;
+}
+
+  .close-btn:hover {
+    background: #006644;
+  }*/
+button, input, select, textarea {
+  font-family: 'Varela Round', sans-serif;
+  /* פונט אחיד גם לכפתורים */
+}
+.mat-dialog-container {
+  border-radius: 30px; /* פינות מעוגלות */
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); /* צל */
+  background: #ffffff;
+  padding: 20px;
+}
+.bgAll {
+/*  background: #f5f8f2;
+  border-collapse: collapse;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);*/
+}
+.title {
+  color: #003b29;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.5rem;
+  
+}
+
+.content {
+  background: #f5f8f2;
+  padding: 15px;
+  border-radius: 8px;
+  border-radius: 12px; /* מעגל פינות */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* צל */
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: relative;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  position: relative;
+  flex-direction: row-reverse;
+}
+
+.circle-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin-left: 10px;
+}
+
+.line {
+  width: 2px;
+  height: 30px;
+  background: #ccc;
+  position: absolute;
+  top: 30px;
+}
+
+.circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+
+.completed .circle {
+  background: #004B3E;
+}
+
+.checkmark {
+  font-size: 1.2rem;
+}
+
+.stage-info {
+  margin-right: 10px;
+  font-size: 1rem;
+  color: #004B3E;
+  text-align: right;
+}
+
+.no-stages {
+  text-align: center;
+  color: #ff0000;
+  font-weight: bold;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.close-btn {
+  background: #004B3E;
+  color: white;
+  padding: 8px 30px;
+  border-radius: 4px;
+  font-size: 18px;
+  border-radius: 12px; /* מעגל פינות */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* צל */
+}
+
+  .close-btn:hover {
+    background: #B5D838;
+  }

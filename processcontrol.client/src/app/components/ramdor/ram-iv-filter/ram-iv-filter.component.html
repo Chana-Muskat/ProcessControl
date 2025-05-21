@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+  <div class="filters">
+    <input type="text" [(ngModel)]="searchTerm" (input)="applyFilter()" placeholder="חפש לפי מס' הזמנת עבודה..." />
+
+    <input type="date" [(ngModel)]="selectedDate" (change)="applyFilter()" />
+
+    <select [(ngModel)]="selectedStatus" (change)="applyFilter()">
+      <option value="">כל הסטטוסים</option>
+      <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
+    </select>
+
+    <button (click)="resetFilters()">איפוס חיפוש</button>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px; /* רווח בין הכפתורים */
+  border-bottom: 3px solid #004B3E; /* קו תחתון ירוק */
+  padding-bottom: 10px;
+}
+
+button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #004B3E;
+  font-weight: bold;
+  padding: 10px 20px;
+  position: relative;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+  button::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    width: 0;
+    height: 4px;
+    background-color: transparent;
+    transition: all 0.3s ease-in-out;
+    transform: translateX(-50%);
+  }
+
+  button:hover {
+    color: #003329;
+  }
+
+    button:hover::after {
+      width: 100%;
+      background-color: #004B3E;
+    }
+
+  button.active {
+    color: white;
+    background-color: #004B3E;
+    border-radius: 20px;
+    padding: 10px 25px;
+  }

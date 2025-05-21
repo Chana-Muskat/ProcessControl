@@ -1,0 +1,85 @@
+body {
+  text-align: center;
+  direction: rtl;
+/*  background-color: #f8f8f8;*/
+}
+button, input, select, textarea {
+  font-family: 'Varela Round', sans-serif; /* פונט אחיד גם לכפתורים */
+}
+h1 {
+  color: black;
+}
+
+table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  border-color: #004B3E;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 12px;
+  border-bottom: 2px solid #004B3E;
+}
+
+th {
+  background-color: #B5D838;
+  color: #004B3E;
+  font-size: 16px;
+  border-top: 2px solid #004B3E; /* מסגרת עליונה כהה */
+  border-bottom: 2px solid #004B3E; /* מסגרת תחתונה כהה */
+}
+
+td {
+  font-size: 14px;
+}
+
+tr:hover {
+  background-color: #e8f5e9;
+}
+
+a {
+  color: #2e7d32;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+.error-row {
+  background-color: #ffe5e5 !important;
+  font-weight: bold;
+}
+
+.in-process-row {
+  background-color: #fffbe6;
+}
+
+.done-row {
+  background-color: #e6ffe6;
+}
+.error-row:hover {
+  background-color: #ffcccc !important; /* אדום טיפה יותר חזק */
+}
+.mark-done-button {
+  background-color: #B5D838;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-family: 'Varela Round', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+  .mark-done-button:hover {
+    background-color: #004B3E;
+  }
+

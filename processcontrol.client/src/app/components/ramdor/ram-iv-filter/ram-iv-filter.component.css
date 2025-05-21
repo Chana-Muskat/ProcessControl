@@ -1,0 +1,28 @@
+
+.filters {
+  display: flex;
+  flex-direction: row-reverse; /* הופך את הסדר של הכפתורים */
+  justify-content: center; /* מיישר את האלמנטים מימין לשמאל */
+  gap: 10px; /* רווחים בין הכפתורים */
+  margin-bottom: 15px;
+}
+
+input, select, button {
+  padding: 8px;
+  border-radius: 5px;
+  border: 2px solid #004B3E;
+  font-size: 14px;
+  direction: rtl;
+  text-align: right;
+}
+
+button {
+  background-color: #B5D838;
+  color: #004B3E;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+  button:hover {
+    background-color: #A5C828;
+  }

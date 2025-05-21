@@ -1,0 +1,6 @@
+@ProcessControl.Server_HostAddress = http://localhost:4200
+
+# GET {{ProcessControl.Server_HostAddress}}/weatherforecast/
+# Accept: application/json
+
+###

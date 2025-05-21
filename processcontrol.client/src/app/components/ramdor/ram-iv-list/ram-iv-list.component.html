@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+  <!--<h1>רשימת חשבוניות</h1>-->
+  <table>
+    <thead>
+      <tr>
+        <!--<th>מזהה חשבונית</th>-->
+        <th>מס' הזמנת עבודה</th>
+        <th>תאריך</th>
+        <th>סטטוס</th>
+      
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let invoice of invoices" (click)="showStages(invoice.invoiceId)" [ngClass]="getRowClass(invoice.statusIv)">
+        <td>{{ invoice.version + '_' + invoice.workNum }}</td>
+        <td>{{ invoice.startDate | date: 'dd/MM/yyyy HH:mm' }}</td>
+        <!--<td>{{ invoice.statusDescription}}</td>-->
+        <td>
+          {{ invoice.statusDescription }}
+          <button *ngIf="invoice.statusIv === 3" (click)="markAsCompleted(invoice, $event)" class="mark-done-button">
+            סמן כהסתיים
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

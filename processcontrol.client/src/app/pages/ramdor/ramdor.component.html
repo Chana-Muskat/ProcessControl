@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+  <div class="dashboard">
+    <!--<p>this page: {{ title }} </p>-->
+    <div class="buttons">
+      <button [routerLink]="['ramdorIv']"
+              (click)="selectButton('חשבוניות')"
+              [ngClass]="{ 'active': selectedButton === 'חשבוניות' }">
+        חשבוניות
+      </button>
+
+      <button (click)="selectButton('חוזים')"
+              [ngClass]="{ 'active': selectedButton === 'חוזים' }">
+        חוזים
+      </button>
+
+      <button (click)="selectButton('ספקים')"
+              [ngClass]="{ 'active': selectedButton === 'ספקים' }">
+        ספקים
+      </button>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+  
+</body>
+</html>
