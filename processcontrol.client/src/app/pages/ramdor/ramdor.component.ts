@@ -9,8 +9,9 @@ import { Component } from "@angular/core";
 })
 export class Ramdor {
   title = 'ממשקי רמדור מול הפריוריטי';
+  selectedButton = '';
   constructor(private http: HttpClient) { }
-  selectedButton: string = 'חשבוניות'; // אפשר להתחיל עם כפתור נבחר
+ // selectedButton: string = 'חשבוניות'; // אפשר להתחיל עם כפתור נבחר
 
   selectButton(button: string) {
     this.selectedButton = button;

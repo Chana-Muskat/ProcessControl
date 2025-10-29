@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <title></title>
+</head>
+<body>
+  <div>{{res}}</div>
+  <ram-iv-filter (filterChanged)="onFilterChange($event)"></ram-iv-filter>
+  <ram-iv-list [invoices]="filteredInvoices"></ram-iv-list>
+  <button class="loadMore-btn" (click)="loadMore()">טען עוד</button>
+  <div class="spinner-container" *ngIf="isLoading">
+    <img src="../../../assets/animation/ratag-loader.gif" class="loading-gif" />
+  </div>
+</body>
+</html>

@@ -3,4 +3,5 @@ export class RamIvStages {
   StageNum!: number;
   StageDes!: string;
   Operator!: string;
+  Type!: string;
 }

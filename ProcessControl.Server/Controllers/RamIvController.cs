@@ -58,8 +58,6 @@ namespace ProcessControl.Server.Controllers
         {
             try
             {
-
-
                 Console.WriteLine($"Received Request: skip={skip}, take={take}");
                 var query = _context.RamInvoices.Include(i => i.StatusIvId).AsQueryable();
 
@@ -80,6 +78,7 @@ namespace ProcessControl.Server.Controllers
                 }
 
                 var invoices = await query
+                    .Where(i => i.Type == "I")
                     .OrderBy(i =>
             i.StatusIv == 3 ? 0 :
             i.StatusIv == 1 ? 1 :
@@ -139,7 +138,7 @@ namespace ProcessControl.Server.Controllers
             Console.WriteLine("Received Invoice:", JsonConvert.SerializeObject(invoice));
 
             invoice.StatusIv = 1;
-
+            invoice.Type = "I";
             _context.RamInvoices.Add(invoice);
             await _context.SaveChangesAsync();
 
@@ -191,26 +190,33 @@ namespace ProcessControl.Server.Controllers
         public async Task<IActionResult> updateInvoiceStages([FromBody] RamUpdateStage data)
         {
             var stageJson = JsonConvert.SerializeObject(data);
-            //  var stageToUpd = JsonConvert.DeserializeObject<RamUpdateStage>(stageJson);
-
-            if (stageJson == null || data.WorkNum == "" || data.StageNum == 0)
+         
+            if (stageJson == null || string.IsNullOrEmpty(data.WorkNum) || data.StageNum == 0)
                 return BadRequest("missing data");
 
 
             var invoice = await _context.RamInvoices
        .Include(i => i.RamStagePerIv)
-       .FirstOrDefaultAsync(i => i.WorkNum == data.WorkNum && i.Version == data.Version);
+       .FirstOrDefaultAsync(i => i.WorkNum == data.WorkNum && i.Version == data.Version && i.Type == data.Type);
 
             if (invoice == null)
-                return NotFound("Invoice not found");
+                return NotFound("Not found");
+
+            // שליפת שלב מתוך טבלת השלבים לפי StageNum ו-Type
+            var stage = await _context.RamIvStages
+                .FirstOrDefaultAsync(s => s.StageNum == data.StageNum && s.Type == data.Type);
+
+            if (stage == null)
+                return NotFound("Stage definition not found");
+
 
             // חיפוש השלב הרלוונטי במסד הנתונים
             var existingStage = await _context.RamStagesPerIv
-       .FirstOrDefaultAsync(s => s.InvoiceIdf == invoice.InvoiceId && s.StageIdf == data.StageNum);
+       .FirstOrDefaultAsync(s => s.InvoiceIdf == invoice.InvoiceId && s.StageIdf == stage.StageId);
+
             if (existingStage == null)
-            {
                 return NotFound("Stage not found for the requested invoice");
-            }
+            
 
             // עדכון הנתונים הקיימים
             existingStage.UDate = DateTime.UtcNow;  // עדכון תאריך
@@ -222,7 +228,7 @@ namespace ProcessControl.Server.Controllers
                 existingStage.IvRequest = data.IvRequest;
             }
             /* Change iv Status to final after the last stage */
-            if (data.StageNum == 4)
+            if (stage.IsFinal == "Y")
             {
                 invoice.StatusIv = 2;
             }
@@ -243,6 +249,131 @@ namespace ProcessControl.Server.Controllers
 
             return Ok(new { message = "החשבונית עודכנה ל'הסתיים'" });
         }
+        // GET: api/orders
+        [HttpGet("getOrders")]
+        public async Task<IActionResult> GetOrders(
+            [FromQuery] string? searchTerm,
+            [FromQuery] string? selectedDate,
+            [FromQuery] string? selectedStatus,
+            [FromQuery] int skip = 0,
+            [FromQuery] int take = 30)
+        {
+            try
+            {
+                Console.WriteLine($"Received Request: skip={skip}, take={take}");
+                var query = _context.RamInvoices.Include(i => i.StatusIvId).AsQueryable();
 
+                if (!string.IsNullOrEmpty(searchTerm))
+                {
+                    query = query.Where(i => i.WorkNum.ToString().Contains(searchTerm));
+                }
+
+                if (!string.IsNullOrEmpty(selectedDate))
+                {
+                    DateTime dateFilter = DateTime.Parse(selectedDate);
+                    query = query.Where(i => i.StartDate.HasValue && i.StartDate.Value.Date == dateFilter.Date);
+                }
+
+                if (!string.IsNullOrEmpty(selectedStatus))
+                {
+                    query = query.Where(i => i.StatusIvId.SDes == selectedStatus);
+                }
+
+                var invoices = await query
+                    .Where(i => i.Type == "O") // Filter for orders
+                    .OrderBy(i =>
+            i.StatusIv == 3 ? 0 :
+            i.StatusIv == 1 ? 1 :
+            2)
+        .ThenByDescending(i => i.StartDate)
+                    .Skip(skip)
+                    .Take(take)
+                    .Select(i => new
+                    {
+                        InvoiceId = i.InvoiceId,
+                        WorkNum = i.WorkNum,
+                        StartDate = i.StartDate,
+                        Version = i.Version,
+                        StatusIv = i.StatusIv,
+                        Type = i.Type,
+                        StatusDescription = i.StatusIvId.SDes
+                    })
+                    .ToListAsync();
+
+                return Ok(invoices);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("newOrder")]
+        public async Task<IActionResult> newOrder([FromBody] dynamic data)
+        {
+            var invoiceJson = JsonConvert.SerializeObject(data);
+            var invoice = JsonConvert.DeserializeObject<RamInvoices>(invoiceJson);
+
+            if (invoice == null)
+                return BadRequest("חוזה ריק!");
+            Console.WriteLine("Received Invoice:", JsonConvert.SerializeObject(invoice));
+
+            invoice.StatusIv = 1;
+            invoice.Type = "O";
+            _context.RamInvoices.Add(invoice);
+            await _context.SaveChangesAsync();
+
+            string invoiceJsons = JsonConvert.SerializeObject(invoice);
+
+            var newStages = new List<RamStagesPerIv> {
+                new RamStagesPerIv
+            {
+                InvoiceIdf = invoice.InvoiceId,  // עכשיו ה-ID זמין
+                StageIdf = 5,                    // שלב ראשוני קבוע
+                UDate = DateTime.UtcNow,         // תאריך כניסה
+                ResStatus = "SUCCESS",
+               // ErrDes = "חשבונית התקבלה למערכת",
+              // IvRequest = invoiceJsons
+            },
+                new RamStagesPerIv
+        {
+            InvoiceIdf = invoice.InvoiceId,
+            StageIdf = 6,                    // שלב שני
+            UDate = null,                     // עדיין אין תאריך
+            ResStatus = null,                 // מחכה לעדכון
+            IvRequest = null
+        },
+        new RamStagesPerIv
+        {
+            InvoiceIdf = invoice.InvoiceId,
+            StageIdf = 7,                    // שלב שלישי
+            UDate = null,                     // עדיין אין תאריך
+            ResStatus = null,                 // מחכה לעדכון
+            IvRequest = null
+        },
+        new RamStagesPerIv
+        {
+            InvoiceIdf = invoice.InvoiceId,
+            StageIdf = 8,                    // שלב רביעי
+            UDate = null,                     // עדיין אין תאריך
+            ResStatus = null,                 // מחכה לעדכון
+            IvRequest = null
+        },
+          new RamStagesPerIv
+        {
+            InvoiceIdf = invoice.InvoiceId,
+            StageIdf = 9,                    // שלב חמישי
+            UDate = null,                     // עדיין אין תאריך
+            ResStatus = null,                 // מחכה לעדכון
+            IvRequest = null
+        }
+    };
+
+            _context.RamStagesPerIv.AddRange(newStages);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "חוזה נוסף בהצלחה!", newInvoice = invoiceJson/*invoiceId = invoice.InvoiceId*/ });
+        }
     }
 }

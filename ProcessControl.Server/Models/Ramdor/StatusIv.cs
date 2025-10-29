@@ -12,6 +12,8 @@ namespace ProcessControl.Server.Models.Ramdor
         public int? SCode { get; set; }
         public string? SDes { get; set; }
         public virtual ICollection<RamInvoices>? RamInvoice { get; set; }
+
+        public virtual ICollection<RamOrders>? RamOrder { get; set; }
         //public StatusIv(int statusIvId, int sCode, string sDes)
         //{
         //    StatusIvId = statusIvId;

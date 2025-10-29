@@ -42,7 +42,23 @@ export class RamdorInvService {
     return this.http.get<RamInvoices[]>(`${this.apiUrl}/getInvoices`, { params });
   }
   
+  getOrders(filters: any = {}, page: number, pageSize: number): Observable<RamInvoices[]> {
+    let params = new HttpParams()
+      .set('skip', ((page - 1) * pageSize).toString())
+      .set('take', pageSize.toString());
 
+    if (filters.searchTerm) {
+      params = params.set('searchTerm', filters.searchTerm);
+    }
+    if (filters.selectedDate) {
+      params = params.set('selectedDate', filters.selectedDate);
+    }
+    if (filters.selectedStatus) {
+      params = params.set('selectedStatus', filters.selectedStatus);
+    }
+    console.log("Sending request with params:", params.toString());
+    return this.http.get<RamInvoices[]>(`${this.apiUrl}/getOrders`, { params });
+  }
   getInvoice(): Observable<any> {
     return this.http.get<any>(this.apiUrl);
   }

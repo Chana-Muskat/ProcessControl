@@ -9,6 +9,7 @@ namespace ProcessControl.Server.Models.Ramdor
         public string? WorkNum { get; set; }
         public DateTime? StartDate { get; set; }
         public string? Version { get; set; }
+        public string? Type { get; set; }
         public int? StatusIv { get; set; }
         public virtual StatusIv? StatusIvId { get; set; }
         public virtual ICollection<RamStagesPerIv>? RamStagePerIv { get; set; }

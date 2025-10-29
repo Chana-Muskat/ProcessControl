@@ -15,11 +15,11 @@
     <h1>{{ title }}</h1>
 
     <div class="container" [ngClass]="{ 'minimized': selectedTopic }">
-      <button class="box"
+      <button class="box" (click)="selectTopic('חניוני לילה')"
               [ngClass]="{ 'selected': selectedTopic === 'חניוני לילה' }">חניוני לילה</button>
       <button class="box" [routerLink]="['/ramdor']" (click)="selectTopic('רמדור')"
               [ngClass]="{ 'selected': selectedTopic === 'רמדור' }">רמדור</button>
-      <button class="box" [routerLink]="['/netzer']"
+      <button class="box" [routerLink]="['/netzer']" (click)="selectTopic('נצר')"
               [ngClass]="{ 'selected': selectedTopic === 'נצר' }">נצר</button>
     </div>
     <div *ngIf="selectedTopic" class="content">

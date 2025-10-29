@@ -6,6 +6,7 @@ export class RamInvoices {
   workNum!: string;
   startDate!: Date;
   version!: string;
+  type!: string;
   statusIv!: number;
   statusDescription!: string;
 

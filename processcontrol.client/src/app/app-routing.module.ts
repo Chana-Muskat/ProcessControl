@@ -5,13 +5,15 @@ import { NetzerIv } from './components/netzer/netzerIv.component';
 import { Ramdor } from './pages/ramdor/ramdor.component';
 import { RamdorIv } from './pages/ramdorIv/ramdorIv.component';
 import { AppComponent } from './app.component';
+import { RamdorOrd } from './pages/ramdorOrd/ramdorOrd.component';
 
 const routes: Routes = [
   { path: 'netzer', component: Netzer },
   {
     path: 'ramdor', component: Ramdor,
     children: [
-      { path: 'ramdorIv', component: RamdorIv }
+      { path: 'ramdorIv', component: RamdorIv },
+      { path: 'ramdorOrd', component: RamdorOrd }
     ]
   },
   

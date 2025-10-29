@@ -15,15 +15,11 @@
         חשבוניות
       </button>
 
-      <button (click)="selectButton('חוזים')"
+      <button  [routerLink]="['ramdorOrd']"
+              (click)="selectButton('חוזים')"
               [ngClass]="{ 'active': selectedButton === 'חוזים' }">
         חוזים
-      </button>
-
-      <button (click)="selectButton('ספקים')"
-              [ngClass]="{ 'active': selectedButton === 'ספקים' }">
-        ספקים
-      </button>
+      </button>    
     </div>
     <router-outlet></router-outlet>
   </div>

@@ -16,11 +16,12 @@ import { CommonModule } from '@angular/common';
 import { RamIvFilter } from './components/ramdor/ram-iv-filter/ram-iv-filter.component';
 import { FormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { RamdorOrd } from './pages/ramdorOrd/ramdorOrd.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent, Netzer, NetzerIv, Ramdor, RamdorIv, RamIvList, RamIvFilter
+    AppComponent, Netzer, NetzerIv, Ramdor, RamdorIv, RamIvList, RamIvFilter, RamdorOrd
   ],
   imports: [
     BrowserModule, HttpClientModule,

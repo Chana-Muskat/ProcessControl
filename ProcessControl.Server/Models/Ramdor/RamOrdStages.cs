@@ -2,17 +2,16 @@
 
 namespace ProcessControl.Server.Models.Ramdor
 {
-    public class RamIvStages
+    public class RamOrdStages
     {
         [Key]
         public int StageId { get; set; }
         public int StageNum { get; set; }
         public string StageDes { get; set; }
         public string Operator { get; set; }
-        public string? Type { get; set; }
-        public string? IsFinal { get; set; }
-        public virtual ICollection<RamStagesPerIv> RamStagePerIv { get; set; }
+        public virtual ICollection<RamStagesPerOrd> RamStagePerOrd { get; set; }
 
-        public RamIvStages() { }
+        public RamOrdStages() { }
     }
 }
+
