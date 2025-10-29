@@ -18,6 +18,7 @@ export class RamdorOrd implements OnInit, OnDestroy {
   public res: string[] = [];
   page: number = 1;
   pageb: number = 1;
+  pagec: number = 1;
   pageSize: number = 5;
   filters = { searchTerm: '', selectedDate: '', selectedStatus: '' };
   filteredInvoices: RamInvoices[] = [];
